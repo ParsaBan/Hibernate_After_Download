@@ -21,9 +21,9 @@ io = psutil.net_io_counters()
 bytes_sent, bytes_recv = io.bytes_sent, io.bytes_recv
 
 while True:
-    # if a timer has been started, check if it has been 10 seconds of minimal download speed, hibernate if so
+    # if a timer has been started, check if it has been one minute of minimal download speed, hibernate if so
     try: 
-        if (time.time() - start > 10):
+        if (time.time() - start > 60):
             os.system(r'%windir%\system32\rundll32.exe powrprof.dll,SetSuspendState Hibernate')
             break
     except:
@@ -42,8 +42,8 @@ while True:
     # update for next iteration
     bytes_sent, bytes_recv = io_2.bytes_sent, io_2.bytes_recv
     
-    #if download speed is less than 10 KB, start a timer
-    if (not check and ds < 250 * 1024):
+    #if download speed is less than 50 KB, start a timer
+    if (not check and ds < 50 * 1024):
         start = time.time()
         check = 1
     
